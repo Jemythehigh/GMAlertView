@@ -43,3 +43,9 @@
 }
 
 @end
+
+#pragma mark - Convenience Constructors
+AppDelegate *appDelegate(void)
+{
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}

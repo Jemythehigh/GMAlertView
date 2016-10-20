@@ -45,7 +45,8 @@
 - (IBAction)showCustomAlert:(id)sender
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[GMAlertView sharedManager] showMessageAlert:@"Header Test" message:@"Do any additional setup after loading the view, typically from a nib. Do any additional setup after loading the view, typically from a nib. Do any additional setup after loading the view, typically from a nib. Do any additional setup after loading the view, typically from a nib. Do any additional setup after loading the view, typically from a nib. Do any additional setup after loading the view, typically from a nib. Do any additional setup after loading the view, typically from a nib."];
+        
+        [[GMAlertView sharedManager] showMessageAlert:@"Geeky!!" message:@"I fear the day that technology will surpass our human interaction. The world will have a generation of idiots."];
     });
     
 }
