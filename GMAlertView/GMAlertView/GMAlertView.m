@@ -34,8 +34,6 @@ UIWindow *window;
     dispatch_once(&onceToken, ^{
         // Initialize
         objGMAlert = [GMAlertView new];
-        
-        
     });
     return objGMAlert;
 }
@@ -77,21 +75,9 @@ UIWindow *window;
     
     [GMAlertView sharedManager].isAlertRemovedSuccessFully = NO;
     
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    //AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
-    if (appDelegate.window.subviews.count > 1) {
-        if (!window)
-            window = [[UIApplication sharedApplication].windows objectAtIndex:1];
-    }else
-    {
-        if (!window)
-        {
-            window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-        }else
-        {
-            window = appDelegate.window;
-        }
-    }
+    window = [UIApplication sharedApplication].keyWindow;
     
     objGMAlert.alertView = [[GMAlertView alloc] initWithFrame:CGRectMake(0.0,  0.0, window.frame.size.width, window.frame.size.height)];
     [objGMAlert.alertView setBackgroundColor:[UIColor clearColor]];
@@ -175,7 +161,11 @@ UIWindow *window;
  **/
 - (void)removeAlertViewFromTopWindow
 {
-    [objGMAlert.alertView removeFromSuperview];
+    for (UIView *view in window.subviews) {
+        if ([view isKindOfClass:[GMAlertView class]]) {
+            [objGMAlert.alertView removeFromSuperview];
+        }
+    }
     
     [GMAlertView sharedManager].isShowNormalAlert = NO;
     [GMAlertView sharedManager].isAlertRemovedSuccessFully = YES;
@@ -185,9 +175,14 @@ UIWindow *window;
     }
 }
 
+// TODO: Fix later
 - (void)removeAlertViewFromTopWindowForOrientation
 {
-    [objGMAlert.alertView removeFromSuperview];
+    for (UIView *view in window.subviews) {
+        if ([view isKindOfClass:[GMAlertView class]]) {
+            [objGMAlert.alertView removeFromSuperview];
+        }
+    }
     
     if ([self.delegate respondsToSelector:@selector(alertRemovedSuccessFully)]) {
         [self.delegate alertRemovedSuccessFully];
@@ -217,6 +212,5 @@ UIWindow *window;
 {
     return YES;
 }
-
 
 @end
